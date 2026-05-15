@@ -1,3 +1,13 @@
+import 'dotenv/config';
+
+const requiredEnvVars = ['BASE_URL', 'E2E_LOGIN', 'E2E_PASSWORD'];
+
+for (const envVar of requiredEnvVars) {
+    if (!process.env[envVar]) {
+        throw new Error(`Missing required environment variable: ${envVar}`);
+    }
+}
+
 export const config = {
     runner: 'local',
     specs: [
@@ -5,6 +15,7 @@ export const config = {
     ],
     exclude: [],
     maxInstances: 10,
+    baseUrl: process.env.BASE_URL,
     capabilities: [{
         browserName: 'chrome'
     }],

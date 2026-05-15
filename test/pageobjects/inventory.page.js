@@ -1,5 +1,3 @@
-import { $, $$ } from '@wdio/globals';
-
 class InventoryPage {
   get title() {
     return $('.title');
@@ -53,6 +51,21 @@ class InventoryPage {
     return $('[data-test="social-linkedin"]');
   }
 
+  async openTwitterLink() {
+    await this.twitterLink.scrollIntoView();
+    await this.twitterLink.click();
+  }
+
+  async openFacebookLink() {
+    await this.facebookLink.scrollIntoView();
+    await this.facebookLink.click();
+  }
+
+  async openLinkedinLink() {
+    await this.linkedinLink.scrollIntoView();
+    await this.linkedinLink.click();
+  }
+
   async addBackpackToCart() {
     await this.addBackpackButton.click();
   }
@@ -61,7 +74,7 @@ class InventoryPage {
     await this.cartLink.click();
   }
 
-  async openMenu() {
+  async openBurgerMenu() {
     await this.burgerButton.click();
   }
 
@@ -84,11 +97,22 @@ class InventoryPage {
     await closeButton.click();
   }
 
-  async sortBy(value) {
+  async prepareCleanCartState() {
+    await this.resetAppState();
+    await browser.url('/inventory.html');
+
+    const removeButton = $('[data-test="remove-sauce-labs-backpack"]');
+
+    if (await removeButton.isExisting()) {
+      await removeButton.click();
+    }
+  }
+
+  async selectSortingOption(value) {
     await this.sortDropdown.selectByAttribute('value', value);
   }
 
-  async getProductNamesText() {
+  async getProductNames() {
     const items = await $$('.inventory_item_name');
 
     const names = [];
@@ -100,7 +124,7 @@ class InventoryPage {
     return names;
   }
 
-  async getProductPricesNumber() {
+  async getProductPrices() {
     const items = await $$('.inventory_item_price');
 
     const prices = [];

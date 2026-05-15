@@ -17,14 +17,29 @@ class LoginPage extends Page {
         return $('[data-test="error"]');
     }
 
-    open() {
-        return browser.url('https://www.saucedemo.com/');
+    openLoginPage() {
+        return this.open('/');
     }
 
-    async login(username, password) {
+    async enterUsername(username) {
         await this.usernameInput.setValue(username);
+    }
+
+    async enterPassword(password) {
         await this.passwordInput.setValue(password);
+    }
+
+    async clickLoginButton() {
         await this.loginButton.click();
+    }
+
+    async loginAsUser(
+        username = process.env.E2E_LOGIN,
+        password = process.env.E2E_PASSWORD
+    ) {
+        await this.enterUsername(username);
+        await this.enterPassword(password);
+        await this.clickLoginButton();
     }
 }
 

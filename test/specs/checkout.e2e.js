@@ -1,43 +1,43 @@
-import LoginPage from '../pageobjects/login.page.js';
-import InventoryPage from '../pageobjects/inventory.page.js';
-import CartPage from '../pageobjects/cart.page.js';
-import CheckoutPage from '../pageobjects/checkout.page.js';
+import loginPage from '../pageobjects/login.page.js';
+import inventoryPage from '../pageobjects/inventory.page.js';
+import cartPage from '../pageobjects/cart.page.js';
+import checkoutPage from '../pageobjects/checkout.page.js';
 
 describe('Checkout test', () => {
 	beforeEach(async () => {
-		await LoginPage.open();
-		await LoginPage.login('standard_user', 'secret_sauce');
+		await loginPage.openLoginPage();
+		await loginPage.loginAsUser();
 	});
 
 	it('TC-8: should complete valid checkout', async () => {
-		await InventoryPage.addBackpackToCart();
-		await expect(InventoryPage.cartBadge).toHaveText('1');
+		await inventoryPage.addBackpackToCart();
+		await expect(inventoryPage.cartBadge).toHaveText('1');
 
-		await InventoryPage.openCart();
+		await inventoryPage.openCart();
 
-		await expect(CartPage.title).toHaveText('Your Cart');
-		await expect(CartPage.cartItem).toBeDisplayed();
-		await expect(CartPage.itemName).toHaveText('Sauce Labs Backpack');
+		await expect(cartPage.title).toHaveText('Your Cart');
+		await expect(cartPage.cartItem).toBeDisplayed();
+		await expect(cartPage.itemName).toHaveText('Sauce Labs Backpack');
 
-		await CartPage.checkout();
+		await cartPage.proceedToCheckout();
 
-		await expect(CheckoutPage.firstNameInput).toBeDisplayed();
+		await expect(checkoutPage.firstNameInput).toBeDisplayed();
 
-		await CheckoutPage.fillCheckoutInfo('Anastasiia', 'Test', '12345');
+		await checkoutPage.fillCheckoutForm('Anastasiia', 'Test', '12345');
 
 		await expect(browser).toHaveUrl(expect.stringContaining('checkout-step-two'));
-		await expect(CheckoutPage.overviewItem).toBeDisplayed();
-		await expect(CheckoutPage.itemTotal).toHaveText(expect.stringContaining('29.99'));
+		await expect(checkoutPage.overviewItem).toBeDisplayed();
+		await expect(checkoutPage.itemTotal).toHaveText(expect.stringContaining('29.99'));
 
-		await CheckoutPage.finishOrder();
+		await checkoutPage.finishOrder();
 
 		await expect(browser).toHaveUrl(expect.stringContaining('checkout-complete'));
-		await expect(CheckoutPage.completeHeader).toHaveText('Thank you for your order!');
+		await expect(checkoutPage.completeHeader).toHaveText('Thank you for your order!');
 
-		await CheckoutPage.backHome();
+		await checkoutPage.returnToProductsPage();
 
 		await expect(browser).toHaveUrl(expect.stringContaining('inventory'));
-		await expect(InventoryPage.title).toHaveText('Products');
-		await expect(InventoryPage.cartBadge).not.toBeExisting();
+		await expect(inventoryPage.title).toHaveText('Products');
+		await expect(inventoryPage.cartBadge).not.toBeExisting();
 	});
 });

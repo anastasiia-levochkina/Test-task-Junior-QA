@@ -2,6 +2,21 @@
 
 Automation testing project using WebdriverIO and Mocha.
 
+## Environment Variables
+
+Project uses `.env` for runtime test data.
+
+Required variables:
+- `BASE_URL` - application URL
+- `E2E_LOGIN` - valid username
+- `E2E_PASSWORD` - valid password
+
+Optional variables used by negative login scenarios:
+- `E2E_WRONG_PASSWORD`
+- `E2E_LOCKED_LOGIN`
+
+Example is available in `.env.example`.
+
 ## Tech Stack
 
 - WebdriverIO

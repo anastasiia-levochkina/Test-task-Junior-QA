@@ -1,15 +1,14 @@
-import LoginPage from '../pageobjects/login.page.js';
-import InventoryPage from '../pageobjects/inventory.page.js';
+import loginPage from '../pageobjects/login.page.js';
+import inventoryPage from '../pageobjects/inventory.page.js';
 
 describe('Footer links tests', () => {
 	beforeEach(async () => {
-		await LoginPage.open();
-		await LoginPage.login('standard_user', 'secret_sauce');
+		await loginPage.openLoginPage();
+		await loginPage.loginAsUser();
 	});
 
-	it('TC-7: should open Twitter link in new tab', async () => {
-		await InventoryPage.twitterLink.scrollIntoView();
-		await InventoryPage.twitterLink.click();
+	it('TC-7.1: should open Twitter link in new tab', async () => {
+		await inventoryPage.openTwitterLink();
 
 		const handles = await browser.getWindowHandles();
 		await browser.switchToWindow(handles[1]);
@@ -20,9 +19,8 @@ describe('Footer links tests', () => {
 		await browser.switchToWindow(handles[0]);
 	});
 
-	it('TC-7: should open Facebook link in new tab', async () => {
-		await InventoryPage.facebookLink.scrollIntoView();
-		await InventoryPage.facebookLink.click();
+	it('TC-7.2: should open Facebook link in new tab', async () => {
+		await inventoryPage.openFacebookLink();
 
 		const handles = await browser.getWindowHandles();
 		await browser.switchToWindow(handles[1]);
@@ -33,9 +31,8 @@ describe('Footer links tests', () => {
 		await browser.switchToWindow(handles[0]);
 	});
 
-	it('TC-7: should open Linkedin link in new tab', async () => {
-		await InventoryPage.linkedinLink.scrollIntoView();
-		await InventoryPage.linkedinLink.click();
+	it('TC-7.3: should open Linkedin link in new tab', async () => {
+		await inventoryPage.openLinkedinLink();
 
 		const handles = await browser.getWindowHandles();
 		await browser.switchToWindow(handles[1]);

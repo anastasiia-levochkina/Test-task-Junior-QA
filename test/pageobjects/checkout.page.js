@@ -1,5 +1,3 @@
-import { $ } from '@wdio/globals';
-
 class CheckoutPage {
   get firstNameInput() {
     return $('[data-test="firstName"]');
@@ -41,14 +39,14 @@ class CheckoutPage {
     return $('[data-test="back-to-products"]');
   }
 
-  async fillCheckoutInfo(firstName, lastName, postalCode) {
+  async fillCheckoutForm(firstName, lastName, postalCode) {
     await this.firstNameInput.setValue(firstName);
     await this.lastNameInput.setValue(lastName);
     await this.postalCodeInput.setValue(postalCode);
     await this.continueButton.click();
   }
 
-  async continue() {
+  async clickContinueButton() {
     await this.continueButton.click();
   }
 
@@ -56,7 +54,7 @@ class CheckoutPage {
     await this.finishButton.click();
   }
 
-  async backHome() {
+  async returnToProductsPage() {
     await this.backHomeButton.click();
   }
 }

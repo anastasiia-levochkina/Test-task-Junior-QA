@@ -1,5 +1,3 @@
-import { $ } from '@wdio/globals';
-
 class CartPage {
   get title() {
     return $('.title');
@@ -21,7 +19,11 @@ class CartPage {
     return $('[data-test="remove-sauce-labs-backpack"]');
   }
 
-  async checkout() {
+  async removeBackpackFromCart() {
+    await this.removeBackpackButton.click();
+  }
+
+  async proceedToCheckout() {
     await this.checkoutButton.click();
   }
 }
