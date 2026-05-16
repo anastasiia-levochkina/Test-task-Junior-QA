@@ -27,7 +27,6 @@ describe('Optional tests', () => {
 
     await cartPage.proceedToCheckout();
     await checkoutPage.fillCheckoutForm('', 'Test', '12345');
-    await checkoutPage.clickContinueButton();
 
     await expect(checkoutPage.errorMessage).toBeDisplayed();
     await expect(checkoutPage.errorMessage).toHaveText(
@@ -43,7 +42,6 @@ describe('Optional tests', () => {
 
     await cartPage.proceedToCheckout();
     await checkoutPage.fillCheckoutForm('Anastasiia', '', '12345');
-    await checkoutPage.clickContinueButton();
 
     await expect(checkoutPage.errorMessage).toBeDisplayed();
     await expect(checkoutPage.errorMessage).toHaveText(
@@ -59,7 +57,6 @@ describe('Optional tests', () => {
 
     await cartPage.proceedToCheckout();
     await checkoutPage.fillCheckoutForm('Anastasiia', 'Test', '');
-    await checkoutPage.clickContinueButton();
 
     await expect(checkoutPage.errorMessage).toBeDisplayed();
     await expect(checkoutPage.errorMessage).toHaveText(
